@@ -2,13 +2,14 @@ import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
-const MachineListItem = (props) => {
+const MachineListItem = ({ title, alert, onInfo, onDelete }) => {
 
     const renderAlert = bool => {
         if(bool){
-            <View style={styles.listItemButtonContent}>
-                <Ionicons size={40} style={styles.listItemAlertIcon} name='md-warning' color={'#ff0000'} />
-            </View>
+            // <View style={styles.listItemButtonContent}>
+            //     <Ionicons size={40} style={styles.listItemAlertIcon} name='md-warning' color={'#ff0000'} />
+            // </View>
+            <Text>Hi</Text>
         }
     }
 
@@ -16,21 +17,21 @@ const MachineListItem = (props) => {
         <View style={styles.listItemView}>
             <Image style={styles.listItemImage} source={require('../assets/images/model-square-image.png')} />
             <View style={styles.listItemContent}>
-                <Text style={styles.listItemTitle}>{props.title}</Text>
+                <Text style={styles.listItemTitle}>{title}</Text>
                 <View style={styles.listItemButton}>
                     <View style={styles.listItemButtonContent}>
                         <Ionicons size={30} style={styles.listItemStartIcon} name='ios-flame' color={'#f37f14'} />
                         <Text>Start</Text>
                     </View>
                     <View style={styles.listItemButtonContent}>
-                        <Ionicons size={30} style={styles.listItemInfoIcon} name='md-information-circle' color={'#111'} />
+                        <Ionicons size={30} style={styles.listItemInfoIcon} name='md-information-circle' color={'#111'} onPress={() => onInfo()} />
                         <Text> Info</Text>
                     </View>
                     <View style={styles.listItemButtonContent}>
-                        <Ionicons size={30} style={styles.listItemDeleteIcon} name='md-trash' color={'#111'} />
+                        <Ionicons size={30} style={styles.listItemDeleteIcon} name='md-trash' color={'#111'} onPress={() => onDelete()} />
                         <Text>Delete</Text>
                     </View>
-                    {() => renderAlert(this.props.alert)}
+                    {() => renderAlert(alert)}
                 </View>
             </View>
         </View>

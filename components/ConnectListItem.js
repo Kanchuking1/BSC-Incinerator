@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
-const MachineListItem = ({ title, onConnect }) => {
+const ConnectListItem = ({ title, onConnect }) => {
     return (
         <View style={styles.listItemView}>
             <Image style={styles.listItemImage} source={require('../assets/images/model-square-image.png')} />
@@ -23,7 +23,7 @@ const MachineListItem = ({ title, onConnect }) => {
     )
 }
 
-export default MachineListItem
+export default ConnectListItem
 
 const styles = StyleSheet.create({
     listItemView: {

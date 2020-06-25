@@ -1,15 +1,29 @@
 import React, { Component, useState } from 'react'
-import { StyleSheet, Text, View, Modal, TouchableHighlight, TextInput } from 'react-native'
+import { StyleSheet, Text, View, Modal, TouchableHighlight, TextInput, Alert } from 'react-native'
 
 import ConnectListItem from '../components/ConnectListItem'
 
 export default function ConnectScreen() {
     const [modalVisible, setModalVisible] = useState(false);
+    const [unconnectedMachines, setUnconnectedMachines] = useState([
+        {
+            id: 3,
+            title: 'DummyMachine',
+            alert: false
+        },
+    ]);
+
+    const toggleModal = id => {
+        setModalVisible(!modalVisible);
+        setUnconnectedMachines(prevState => {
+            return prevState.filter(machine => machine.id !== id);
+        })
+    }
 
     return (
         <View>
-            <ConnectListItem title='Dummy Machine 1' onConnect={() =>{setModalVisible(true)}} />
-            <ConnectListItem title='Dummy Machine 2' onConnect={() =>{setModalVisible(true)}} />
+            {unconnectedMachines.map(machine => <ConnectListItem title={machine.title} onConnect={() =>{setModalVisible(true)}} /> )}
+
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -22,22 +36,20 @@ export default function ConnectScreen() {
                 <View style={styles.modalView}>
                     <Text style={styles.modalText}>Machine Config</Text>
                     <View style={styles.modalContent}>
-                        <Text>Select Wifi: </Text><TextInput style={styles.modalInput} />
+                        <Text>Select Wifi: </Text><TextInput style={styles.modalInputWifi} />
                     </View>
                     <View style={styles.modalContent}>
-                        <Text>Password: </Text><TextInput style={styles.modalInput} keyboardType='visible-password' secureTextEntry={true} textContentType='password' />
+                        <Text>Password: </Text><TextInput style={styles.modalInputPassword} keyboardType='visible-password' secureTextEntry={true} textContentType='password' />
                     </View>
                     <View style={styles.modalContent}>
-                        <Text>Machine Name: </Text><TextInput style={styles.modalInput} />
+                        <Text>Machine Name: </Text><TextInput style={styles.modalInputName} />
                     </View>
                     <View style={styles.modalContent}>
                         <Text>Location: </Text><TextInput style={styles.modalInputLocation} />
                     </View>
                     <TouchableHighlight
                     style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                    onPress={() => {
-                        setModalVisible(!modalVisible);
-                    }}
+                    onPress={() => toggleModal(3)}
                     >
                     <Text style={styles.textStyle}>Connect</Text>
                     </TouchableHighlight>
@@ -59,7 +71,7 @@ const styles = StyleSheet.create({
         margin: 20,
         backgroundColor: "white",
         width: 300,
-        height:350,
+        height:325,
         borderRadius: 20,
         padding: 35,
         alignItems: "center",
@@ -99,14 +111,38 @@ const styles = StyleSheet.create({
           borderWidth: 1,
           padding:5,
           width: 100,
-          borderRadius: 20
+          borderRadius: 10
       },
-      modalInputLocation: {
+      modalInputWifi: {
         borderColor: '#000',
         borderWidth: 1,
         padding:5,
         width: 150,
+        height:30,
+        borderRadius: 10
+    },
+    modalInputPassword: {
+        borderColor: '#000',
+        borderWidth: 1,
+        padding:5,
+        width: 155,
+        height:30,
+        borderRadius: 10
+    },
+    modalInputName: {
+        borderColor: '#000',
+        borderWidth: 1,
+        padding:5,
+        width: 125,
+        height:30,
+        borderRadius: 10
+    },
+      modalInputLocation: {
+        borderColor: '#000',
+        borderWidth: 1,
+        padding:5,
+        width: 165,
         height:50,
-        borderRadius: 20
+        borderRadius: 10
     }
 })
