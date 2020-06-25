@@ -22,19 +22,26 @@ export default function HomeScreen() {
     const [machines, setMachines] = useState([
         {
             id: 1,
-            title: 'Ground Floor Washroom',
+            title: 'Ground Floor Washroom', 
             alert: false
         },
         {
             id: 2,
-            title: 'New Machine',
+            title: 'First Floor Washroom',
             alert: true
         },
+        {
+            id: 3,
+            title: 'New Machine',
+            alert: true
+        }
     ]);
     const [modalVisible, setModalVisible] = useState(false);
 
     const delMachine = (id) => {
-        machines.shift()
+        setMachines(prevState => {
+            return prevState.filter(machine => machine.id !== id);
+        })
     }
   
     return (
@@ -48,7 +55,7 @@ export default function HomeScreen() {
                 keyExtractor={machine => machine.id}
             /> */}
 
-            {machines.map(machine => <MachineListItem title={machine.title} alert={machine.alert} onInfo={() =>{setModalVisible(true)}} onDelete={delMachine} /> )}
+            {machines.map(machine => <MachineListItem id={machine.id} title={machine.title} alert={machine.alert} onInfo={() =>{setModalVisible(true)}} onDelete={delMachine} /> )}
 
             <Modal
                 animationType="slide"

@@ -2,16 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
-const MachineListItem = ({ title, alert, onInfo, onDelete }) => {
-
-    const renderAlert = bool => {
-        if(bool){
-            // <View style={styles.listItemButtonContent}>
-            //     <Ionicons size={40} style={styles.listItemAlertIcon} name='md-warning' color={'#ff0000'} />
-            // </View>
-            <Text>Hi</Text>
-        }
-    }
+const MachineListItem = ({ id ,title, alert, onInfo, onDelete }) => {
 
     return (
         <View style={styles.listItemView}>
@@ -28,10 +19,12 @@ const MachineListItem = ({ title, alert, onInfo, onDelete }) => {
                         <Text> Info</Text>
                     </View>
                     <View style={styles.listItemButtonContent}>
-                        <Ionicons size={30} style={styles.listItemDeleteIcon} name='md-trash' color={'#111'} onPress={() => onDelete()} />
+                        <Ionicons size={30} style={styles.listItemDeleteIcon} name='md-trash' color={'#111'} onPress={() => onDelete(id)} />
                         <Text>Delete</Text>
                     </View>
-                    {() => renderAlert(alert)}
+                    <View style={styles.listItemButtonContent}>
+                        <Ionicons size={40} style={styles.listItemAlertIcon} name='md-warning' color={alert?'#ff0000':'#DDD9B2'} visi />
+                    </View>
                 </View>
             </View>
         </View>
